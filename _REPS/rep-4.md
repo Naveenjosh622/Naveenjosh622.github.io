@@ -6,7 +6,7 @@ status: call
 contributors: JFelix Lange <felix@ethdev.com>
 date: 2021-02-24
 youtube: Xsj36M3o0DQ
-keywords: tera, icn, plg
+keywords: tera, icn, plg  
 discuss: 99-creating-events-on-icn-open-forum
 tx-hash: 6146ccf6a66d994f7c363db875e31ca35581450a4bf6d3be6cc9ac79233a69d3
 ---

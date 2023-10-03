@@ -70,10 +70,11 @@
                 <p><strong>Status : </strong> Page not found </p>
             {% endif %}
             <p><strong>Keywords: </strong>
-                {{page.tags}}
+                    {{page.keywords}}
               </p>
-
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{page.youtube}}" frameborder="0"  allowfullscreen> </iframe>
+              <div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{page.youtube}}" frameborder="0"  allowfullscreen> </iframe>
+              </div>
         <br>
             <h2>Table of contents</h2>
             {% include toc.html html=content %}
@@ -109,7 +110,7 @@
         }
 
         function shareOnTwitter() {
-            window.open("https://twitter.com/intent/tweet?url={{page.url}}", "_blank");
+            window.open("https://twitter.com/intent/tweet?url={{page.url}}&text=YOUR_TEXT", "_blank");
         }
 
         function shareOnTelegram() {

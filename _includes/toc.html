@@ -55,15 +55,14 @@
 
     {% capture newline %}
     {% endcapture %}
-    {% assign newline = newline | rstrip %} <!-- Remove the extra spacing but preserve the newline -->
-
+    {% assign newline = newline | rstrip %}
     {% capture deprecation_warnings %}{% endcapture %}
 
-    {% if include.baseurl %}
+    {% if include.base_url %}
         {% capture deprecation_warnings %}{{ deprecation_warnings }}<!-- jekyll-toc :: "baseurl" has been deprecated, use "base_url" instead -->{{ newline }}{% endcapture %}
     {% endif %}
 
-    {% if include.skipNoIDs %}
+    {% if include.skip_no_ids %}
         {% capture deprecation_warnings %}{{ deprecation_warnings }}<!-- jekyll-toc :: "skipNoIDs" has been deprecated, use "skip_no_ids" instead -->{{ newline }}{% endcapture %}
     {% endif %}
 
