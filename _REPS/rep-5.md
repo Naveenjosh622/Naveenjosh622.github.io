@@ -6,7 +6,7 @@ status: call
 contributors: Fabian Vogelsteller <fabian@ethereum.org>, Vitalik Buterin <vitalik.buterin@ethereum.org>
 date: 2023-01-15
 youtube: _rHLOXbFZtI
-tags: [plg]  
+keywords: plg  
 discuss: 99-creating-events-on-icn-open-forum
 tx-hash: 6146ccf6a66d994f7c363db875e31ca35581450a4bf6d3be6cc9ac79233a69d4
 ---

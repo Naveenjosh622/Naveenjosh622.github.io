@@ -6,7 +6,7 @@ status: final
 contributors: naveen
 date: 2019-08-04
 youtube: FV3bqvOHRQo
-tags: [plg, tera]  
+keywords: plg, tera
 discuss: 99-creating-events-on-icn-open-forum
 tx-hash: 6146ccf6a66d994f7c363db875e31ca35581450a4bf6d3be6cc9ac79233a69d2
 ---
