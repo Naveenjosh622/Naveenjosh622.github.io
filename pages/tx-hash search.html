@@ -1,0 +1,45 @@
+---
+layout : default
+title : search
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1 class="txtitle">Search for TX-Hash</h1>
+    <form class="txsearchcontainer" id="search-form">
+        <input class="txsearch" type="text" id="search-input" placeholder="Enter tx-hash...">
+        <button class="txbutton" type="submit">Search</button>
+      </form>
+      <div class="txresults" id="search-results"></div>
+<script>
+$(document).ready(function() {
+  $('#search-form').submit(function(e) {
+    e.preventDefault(); 
+
+    var searchTerm = $('#search-input').val().trim().toLowerCase();
+    var searchResults = [];
+
+    {% for post in site.REPS %}
+      var txHash = '{{ post.tx-hash | default: "" }}'.trim().toLowerCase();
+      if (txHash === searchTerm) {
+        searchResults.push('<a href="{{ post.url }}"> REP - {{post.rep}} : {{ post.title }}</a>');
+      }
+    {% endfor %}
+
+    // search results
+    var resultsDiv = $('#search-results');
+    resultsDiv.html('');
+    if (searchResults.length === 0) {
+      resultsDiv.html('No results found.');
+    } else {
+      resultsDiv.html('Search results:<br>' + searchResults.join('<br>'));
+    }
+  });
+});
+</script>
+</body>
+</html>

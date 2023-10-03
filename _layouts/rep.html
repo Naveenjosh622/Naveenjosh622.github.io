@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    {%- include head.html -%}
+    <style>
+        @media print {
+          /* Hide the header and footer when printing */
+          header, footer {
+            display: none;
+          }
+        }
+      </style>
+
+<body>
+    <header>
+        {%- include header.html -%}
+    </header>
+
+    <main>
+        <div class="wrapper">
+            <div class="btncontainer">
+                <button class="printbtn" href="javascript:void(0);" onclick="window.print();"><i class='bx mdicon bxs-file-pdf' style='color:#ffffff' ></i>Download as pdf</button>
+                <button class="printbtn"><a class="btnlnk" href="{% raw %}{% github_edit_link %}{% endraw %}"><i class='bx mdicon bxs-edit-alt' style='color:#ffffff' ></i>Edit this page</a></button> 
+
+                    <div class="sharediv">
+                        <button id="shareButton" class="discussbtn share-button"><i class='bx mdicon bxs-share-alt' style='color:#ffffff'  ></i>Share</a></button>           
+                        <div class="share-menu" id="shareMenu">
+                            <span class="share-icon" onclick="shareOnFacebook()"><i class='bx bxl-facebook-square' style='color:#ffffff' ></i></span>
+                            <span class="share-icon" onclick="shareOnWhatsApp()"><i class='bx bxl-whatsapp' style='color:#ffffff'></i></span>
+                            <span class="share-icon" onclick="shareViaEmail()"><i class='bx bxs-envelope' style='color:#ffffff' ></i></span>
+                            <span class="share-icon" onclick="shareOnTwitter()"><i class='bx bxl-twitter' style='color:#ffffff' ></i></span>
+                            <span class="share-icon" onclick="shareOnTelegram()"><i class='bx bxl-telegram' style='color:#ffffff' ></i></span>
+                        </div>
+                    </div>
+                               
+                <button class="discussbtn"><i class='bx mdicon bxs-conversation'></i><a class="btnlnk" href="https://openicn.auguth.com/d/{{page.discuss}}">Discuss</a></button>               
+            </div>
+        <h1 class="reptitle">REP - {{ page.rep }} : {{page.title}} </h1>
+        <p id="descriptionRep"> {{page.description}} </p>
+        <script>
+            // Get the reference to the td element
+            var descriptionRep = document.getElementById("descriptionRep");
+          
+            // Check if the content exceeds the character limit and truncate if necessary
+            if (descriptionRep.textContent.length > 100) {
+              descriptionRep.textContent = descriptionRep.textContent.substring(0, 100);
+            }
+          </script>
+
+        <P><strong>Authors : </strong>
+            {% for contributors in page.contributors %}
+            <a href="https://openicn.auguth.com/u/{{ contributors }}">{{ contributors }}</a>
+            {% unless forloop.last %}, {% endunless %}
+        {% endfor %}         
+        </p>
+        <p><strong>Created : </strong> {{ page.date | date: "%d %B %Y" }} <p>
+            {% assign specificPage = site.REPS | where: "title", {{page.title}} | first %}
+            {% if specificPage %}
+                {% if specificPage.status == 'call' %}
+                    <p><strong>Status : </strong> Call for Review </p>
+                {% elsif specificPage.status == 'final' %}
+                    <p><strong>Status : </strong> Finalized/Amended </p>
+                {% elsif specificPage.status == 'drop' %}
+                    <p><strong>Status : </strong> Dropped/Declined </p>
+                {% elsif specificPage.status == 'vote' %}
+                    <p><strong>Status : </strong> Voting phase </p>
+                {% else %}
+                    <p><strong>Status : </strong> Undefined </p>
+                {% endif %}
+            {% else %}
+                <p><strong>Status : </strong> Page not found </p>
+            {% endif %}
+            <p><strong>Keywords: </strong>
+                {% for tag in page.tags %}
+                  <a href="{{ site.baseurl }}/pages/tags.html">{{ tag }}</a>
+                  {% unless forloop.last %}, {% endunless %}
+                {% endfor %}
+              </p>
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{page.youtube}}" frameborder="0"  allowfullscreen> </iframe>
+        <br>
+            <h2>Table of contents</h2>
+            {% include toc.html html=content %}
+        <br>
+        {{ content }}
+        </div>
+
+    </main>
+
+    {{% include footerscripts.html %}}
+
+    <div class="totop">
+        <a href="#">
+          <i class='bx backtop bxs-to-top'></i>
+       </a>
+      </div>
+    <footer>
+        {%include footer.html%}          
+    </footer>
+<!-- share icon script -->
+    <script>
+        // JavaScript functions for sharing
+        function shareOnFacebook() {
+            window.open("https://www.facebook.com/sharer/sharer.php?u={{page.url}}", "_blank");
+        }
+
+        function shareOnWhatsApp() {
+            window.open("https://api.whatsapp.com/send?text=YOUR_MESSAGE%20-%20{{page.url}}", "_blank");
+        }
+
+        function shareViaEmail() {
+            window.location.href = "mailto:?subject=YOUR_SUBJECT&body=Check%20out%20this%20link:%20YOUR_URL";
+        }
+
+        function shareOnTwitter() {
+            window.open("https://twitter.com/intent/tweet?url={{page.url}}&text=YOUR_TEXT", "_blank");
+        }
+
+        function shareOnTelegram() {
+            window.open("https://t.me/share/url?url={{page.url}}&text=YOUR_TEXT", "_blank");
+        }
+
+        // Toggle the share menu
+        document.getElementById("shareButton").addEventListener("click", function () {
+            var shareMenu = document.getElementById("shareMenu");
+            if (shareMenu.style.display === "block") {
+                shareMenu.style.display = "none";
+            } else {
+                shareMenu.style.display = "block";
+            }
+        });
+    </script>
+
+
+</body>
+</html>

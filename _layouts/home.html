@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+
+  <body>
+
+    {%- include header.html -%}
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+
+        {% for page in site.REPS %}
+        {% if page.status == 'vote' %}
+        {% assign voteCount = voteCount | plus: 1 %}
+        <h1>Currently in Vote</h1> 
+        <table>
+          <thead>
+              <tr>
+                  <th>Number</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Author</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% assign sorted_reps = site.REPS | sort: 'date' | reverse %}
+              {% for page in sorted_reps %}
+                  {% if page.status == 'vote' and page.rep != nil %}
+                  <tr>
+                      <td><a class="lnk" href="/REPS/rep-{{page.rep}}">{{ page.rep }}</a></td>
+                      <td><a class="lnk" href="/REPS/rep-{{page.rep}}">{{ page.title }}</a></td>
+                      <td>{{ page.description | truncate: 100 }}</td>
+                      <td>
+                          {% for contributors in page.contributors %}
+                          <a href="https://openicn.auguth.com/u/{{ contributors }}">{{ contributors }}</a>
+                          {% unless forloop.last %}, {% endunless %}
+                          {% endfor %}
+                      </td>
+                  </tr>
+                  {% endif %}
+              {% endfor %}
+          </tbody>
+      </table>
+
+        <hr>
+        <br>
+        {% endif %}
+        {% endfor %}
+
+        {% if voteCount == 0 %}
+         <h2>There is no vote Currently</h2>
+         <hr>
+         <br>
+        {% endif %}
+
+
+        {{ content }}
+      </div>
+    </main>
+
+    <div class="totop">
+      <a href="#">
+        <i class='bx backtop bxs-to-top'></i>
+     </a>
+    </div>
+
+    {%- include footer.html -%}
+    
+    {%include footerscripts.html%}
+   
+  </body>
+
+</html>

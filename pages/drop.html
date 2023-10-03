@@ -1,0 +1,45 @@
+---
+layout : default
+title : drop
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <h1> REPs : Dropped </h1>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% assign sorted_reps = site.REPS | sort: 'date' | reverse %}
+            {% for page in sorted_reps %}
+                {% if page.status == 'drop' and page.rep != nil %}
+                <tr>
+                    <td><a class="lnk" href="/REPS/rep-{{page.rep}}">{{ page.rep }}</a></td>
+                    <td><a class="lnk" href="/REPS/rep-{{page.rep}}">{{ page.title }}</a></td>
+                    <td>{{ page.description | truncate: 100 }}</td>
+                    <td>
+                        {% for contributors in page.contributors %}
+                        <a href="https://openicn.auguth.com/u/{{ contributors }}">{{ contributors }}</a>
+                        {% unless forloop.last %}, {% endunless %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</body>
+</html>
